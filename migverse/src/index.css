@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens: space-separated RGB channels so Tailwind alpha works. Edit here to rebrand. */
+:root {
+  --bg: 10 17 40;        /* deep navy */
+  --surface: 17 27 58;
+  --surface2: 25 38 78;
+  --line: 40 56 108;
+  --text: 232 238 255;
+  --muted: 140 155 200;
+  --brand: 47 107 255;   /* electric blue */
+  --gold: 245 185 66;    /* VIP / collectibles */
+  --danger: 255 107 120;
+  --ok: 52 211 153;
+  --text-scale: 1;
+}
+[data-theme='light'] {
+  --bg: 244 247 255;
+  --surface: 255 255 255;
+  --surface2: 233 239 255;
+  --line: 208 219 246;
+  --text: 14 22 48;
+  --muted: 88 102 140;
+  --brand: 37 90 235;
+  --gold: 190 130 10;
+  --danger: 210 50 70;
+  --ok: 16 150 105;
+}
+
+html { font-size: calc(16px * var(--text-scale)); }
+html, body, #root { height: 100%; }
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+:focus-visible { outline: 2px solid rgb(var(--brand)); outline-offset: 2px; }
+[data-motion='reduced'] *, [data-motion='reduced'] *::before, [data-motion='reduced'] *::after {
+  animation: none !important; transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed; min-height: 44px; }
+  .btn-primary { @apply bg-brand text-white hover:brightness-110; }
+  .btn-ghost { @apply bg-surface2 text-ink hover:brightness-110; }
+  .btn-danger { @apply bg-danger/15 text-danger hover:bg-danger/25; }
+  .input { @apply w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-ink placeholder:text-muted; min-height: 44px; }
+  .label { @apply mb-1.5 block text-sm font-medium text-muted; }
+  .card { @apply rounded-2xl border border-line bg-surface; }
+}
+
+.pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.pt-safe { padding-top: env(safe-area-inset-top, 0px); }
